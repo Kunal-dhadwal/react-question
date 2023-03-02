@@ -1,10 +1,9 @@
 import React from 'react';
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import FormBuilder from './component/FormBuilder/FormBuilder';
 import ReviewAnswer from './component/ReviewAnswer/ReviewAnswer';
 
 export default function Routing() {
-   const navigator = useNavigate();
    const RouteFunction = ({ children }) => {
       return (window.location.pathname !== "/" ? children : window.location.pathname="/form/builder"
       )

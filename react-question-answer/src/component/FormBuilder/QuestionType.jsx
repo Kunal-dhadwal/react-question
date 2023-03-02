@@ -38,6 +38,7 @@ function QuestionType({ hideModal, setData }) {
                 SetQuestion({ ...data })
                 break;
             }
+            default: return
         }
     }
     const AddOptions = () => {

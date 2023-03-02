@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../SelectQuestionType/Model'
 import QuestionType from './QuestionType'
@@ -36,6 +36,7 @@ const FormBuilder = () => {
                 localStorage.setItem('Question-Answer', JSON.stringify(newData));
                 break;
             }
+            default: return
         }
     }
     const checkOutTOReview=()=>{

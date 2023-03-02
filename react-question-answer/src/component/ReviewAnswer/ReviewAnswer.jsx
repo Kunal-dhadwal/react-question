@@ -33,7 +33,7 @@ function ReviewAnswer() {
           })
         }
       </div>
-      <a onClick={()=>navigate("/form/builder")} style={{textDecorationLine:"underline"}}>Back to form builder</a>
+      <button onClick={()=>navigate("/form/builder")} style={{textDecorationLine:"underline"}}>Back to form builder</button>
     </div>
   )
 }
