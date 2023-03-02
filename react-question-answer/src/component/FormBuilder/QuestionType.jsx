@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-function QuestionType({ hideModal }) {
+function QuestionType({ hideModal, setData }) {
     const [AnswerType, setAnswerType] = useState("checkbox");
+    const [openInput, setOpenInput] = useState(false)
     const [Question, SetQuestion] = useState({
         "type": "checkbox",
         "Question": "",
@@ -32,6 +33,7 @@ function QuestionType({ hideModal }) {
             case "changeType": {
                 let data = Question;
                 data["type"] = e;
+                data["Answer"] = e === "checkbox" ? [] : ""
                 if (e === "paragraph") data["Options"] = []; setCheckBoxOpt("");
                 SetQuestion({ ...data })
                 break;
@@ -40,10 +42,10 @@ function QuestionType({ hideModal }) {
     }
     const AddOptions = () => {
         let data = Question;
-        console.log("data", data)
         data["Options"] = [...data.Options, checkBoxOption];
         setOptionError(false)
         SetQuestion({ ...data })
+        setOpenInput(false)
         setCheckBoxOpt("");
     }
 
@@ -58,15 +60,15 @@ function QuestionType({ hideModal }) {
                 let data = items;
                 data.push(Question)
                 localStorage.setItem('Question-Answer', JSON.stringify(data));
-            }else{
+                setData(data)
+            } else {
                 localStorage.setItem('Question-Answer', JSON.stringify([Question]));
-                
+                setData([Question])
+
             }
             hideModal()
-            console.log("items", items)
         }
     }
-    console.log("co", Question)
     return (
         <div>
             <h3>Add a New Question</h3>
@@ -84,9 +86,11 @@ function QuestionType({ hideModal }) {
                             Question.Options && Question.Options.length ? Question.Options.map((item, i) => <li key={i}>{item}</li>) : ""
                         }
                     </ul>
-                    <input type="text" name='addNewOpt' value={checkBoxOption} onChange={(e) => HandleonChange(e, 'add')} disabled={!Question.Question ? true : false} /> 
+                    {openInput ? <>
+                        <input type="text" name='addNewOpt' value={checkBoxOption} onChange={(e) => HandleonChange(e, 'add')} disabled={!Question.Question ? true : false} />
                         <span style={{ color: OptionError ? "red" : "white" }}>Question is required</span>
-                    <button onClick={AddOptions} disabled={!Question.Question ? true : false}>Add New option</button>
+                        <button onClick={AddOptions} disabled={!Question.Question ? true : false}>Add</button>
+                    </> :<button onClick={()=>setOpenInput(true)} disabled={!Question.Question ? true : false}>Add New option</button>}
                 </div>}
             </div>
             <button onClick={submit}>Submit</button>

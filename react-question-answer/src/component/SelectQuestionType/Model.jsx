@@ -3,8 +3,8 @@ import * as ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
 const Modal = ({ children, showModal, toggleModal }) => {
+  const element=document.getElementById("model")
   const wrapperRef = useRef(null);
-    console.log(showModal,toggleModal)
   const closeModal = useCallback(
     ({ target }) => {
       if (
@@ -33,7 +33,7 @@ const Modal = ({ children, showModal, toggleModal }) => {
   return showModal
     ? ReactDOM.createPortal(
         <>
-          <div style={{borderStyle:"solid",width:"40%", float:"right",height:"50vh",zIndex:-1,transition:"0.8s",padding:"10px"}} >
+          <div style={{borderStyle:"solid",width:"40%",height:"50vh",zIndex:-1,transition:"0.8s",padding:"10px"}} >
             <div style={{marginTop:"40px"}}>
               <div ref={wrapperRef}>
                 {children}
@@ -41,7 +41,7 @@ const Modal = ({ children, showModal, toggleModal }) => {
             </div>
           </div>
         </>,
-        document.body
+        element
       )
     : null;
 };
